@@ -6,8 +6,27 @@ import { swaggerSpecs } from "./swagger";
 import swaggerUi from "swagger-ui-express";
 import routes from "../api/routes/routes";
 
+import cors from "cors";
+import bodyParser from "body-parser";
+import helmet from "helmet";
+import compress from "compression";
+
 const app: Application = express();
 export const port = process.env.PORT || 8000;
+
+app.use(cors());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+// gzip compression
+app.use(compress());
+
+// secure apps by setting various HTTP headers
+app.use(helmet());
 
 app.use("/v1", routes);
 

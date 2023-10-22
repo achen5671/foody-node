@@ -14,7 +14,7 @@ class OpenAIClient {
         temperature: 0.6,
       });
 
-      return completion.choices[0].text;
+      return completion.choices;
     } catch (error) {
       console.log(error);
     }

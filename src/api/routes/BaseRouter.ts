@@ -27,7 +27,6 @@ export default class BaseRouter {
       //     snakeCaseResponse = this.snakealize(payload);
       //   }
 
-      res.status(200).send();
       res.status(200).send(payload);
     }
   }
