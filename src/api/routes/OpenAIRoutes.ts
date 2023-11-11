@@ -23,9 +23,9 @@ class OpenAIRoutes extends BaseRouter {
       this.tryWrapper(async (req, res) => {
         const { ingredients } = req.body;
 
-        const recipe = await OpenAIClient.getFood(ingredients);
+        const recipes = await OpenAIClient.getFood(ingredients);
 
-        this.sendSuccessResponse(res, { recipe });
+        this.sendSuccessResponse(res, recipes);
       })
     );
   }
