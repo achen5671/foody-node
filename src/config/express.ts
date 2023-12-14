@@ -10,9 +10,12 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import compress from "compression";
+import connectMongoDB from "../db/mongodb";
 
 const app: Application = express();
 export const port = process.env.PORT || 8000;
+
+connectMongoDB();
 
 app.use(cors());
 
