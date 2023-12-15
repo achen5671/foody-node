@@ -1,21 +1,19 @@
-import User from "../../db/models/User";
-
-export type User = {
-  name: string;
-  username: string;
-  password: string;
-  email: string;
-  smsNumber: string;
-  updatedAt: string;
-  createdAt: string;
-};
+import User, { UserType } from "../../db/models/User";
+import { FavoriteMealRequest } from "../routes/Request";
 
 class UserRepository {
   findBy = async (request: {
     username: string;
     password: string;
-  }): Promise<User | null> => {
+  }): Promise<UserType | null> => {
     return User.findOne(request);
+  };
+
+  addFavoriteMeal = async (userId: string, request: FavoriteMealRequest) => {
+    return User.updateOne(
+      { _id: userId },
+      { $push: { favoriteMeals: request } }
+    );
   };
 }
 

@@ -1,11 +1,9 @@
-import { Request, Response } from "express";
 import express from "express";
-import OpenAIClient from "../../openai/api";
 import BaseRouter from "./BaseRouter";
-import User from "../../db/models/User";
-import { JoinRequest } from "./Request";
+import UserService from "../services/UserService";
+import { FavoriteMealRequest } from "./Request";
 
-class AuthRoutes extends BaseRouter {
+class UserRoutes extends BaseRouter {
   public router: express.Router;
 
   constructor() {
@@ -17,7 +15,7 @@ class AuthRoutes extends BaseRouter {
   private routes(): void {
     this.router.post(
       "/login",
-      this.tryWrapper(async (req, res) => {
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { username, password } = req.body;
         console.log(username, password);
         this.sendSuccessResponse(res);
@@ -27,11 +25,29 @@ class AuthRoutes extends BaseRouter {
     // TODO: Incomplete
     this.router.post(
       "/logout",
-      this.tryWrapper(async (req, res) => {
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.post(
+      "/favorite-meals/:userId",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req.params;
+        const request: FavoriteMealRequest = req.body;
+        await UserService.addFavoriteMeal(userId, request);
+        this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.post(
+      "/favorite-meals",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { id } = req.params;
         this.sendSuccessResponse(res);
       })
     );
   }
 }
 
-export default new AuthRoutes().router;
+export default new UserRoutes().router;

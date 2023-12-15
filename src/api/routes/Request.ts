@@ -5,3 +5,11 @@ export type JoinRequest = {
   email?: String;
   smsNumber?: String;
 };
+
+export type FavoriteMealRequest = {
+  name: string;
+  ingredients: string[];
+  preparation: string[];
+  calories: number;
+  nutrition: Object;
+};
