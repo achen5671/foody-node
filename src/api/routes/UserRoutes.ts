@@ -32,9 +32,11 @@ class UserRoutes extends BaseRouter {
 
     // NOTE: should favorite-meals exist in it's own route?
     this.router.post(
-      "/favorite-meals/delete",
+      "/favorite-meals/:mealId/delete",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
-        const { id } = req.params;
+        const { mealId } = req.params;
+        const { userId } = req;
+        await UserService.deleteFavoriteMeal(userId, mealId);
         this.sendSuccessResponse(res);
       })
     );

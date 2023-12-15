@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { UserType } from "../../db/models/User";
 import { ResourceDoesNotExistError } from "../middlewares/apiErrors";
 import UserRepository from "../repositories/UserRepository";
@@ -19,7 +20,14 @@ class UserService {
     userId: string,
     favMealRequest: FavoriteMealRequest
   ) => {
-    await UserRepository.addFavoriteMeal(userId, favMealRequest);
+    await UserRepository.addFavoriteMeal(new ObjectId(userId), favMealRequest);
+  };
+
+  deleteFavoriteMeal = async (userId: string, favMealId: string) => {
+    await UserRepository.deleteFavoriteMeal(
+      new ObjectId(userId),
+      new ObjectId(favMealId)
+    );
   };
 }
 
