@@ -30,20 +30,21 @@ class UserRoutes extends BaseRouter {
       })
     );
 
+    // NOTE: should favorite-meals exist in it's own route?
+    this.router.post(
+      "/favorite-meals/delete",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { id } = req.params;
+        this.sendSuccessResponse(res);
+      })
+    );
+
     this.router.post(
       "/favorite-meals/:userId",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { userId } = req.params;
         const request: FavoriteMealRequest = req.body;
         await UserService.addFavoriteMeal(userId, request);
-        this.sendSuccessResponse(res);
-      })
-    );
-
-    this.router.post(
-      "/favorite-meals",
-      this.tryWrapper(async (req: express.Request, res: express.Response) => {
-        const { id } = req.params;
         this.sendSuccessResponse(res);
       })
     );

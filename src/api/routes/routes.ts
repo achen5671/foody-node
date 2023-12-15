@@ -23,7 +23,7 @@ class Routes {
     this.router.use("/status", (_req, res) => res.send("OK"));
     this.router.use("/auth", AuthRoutes);
     this.router.use("/openai", authorize, OpenAIRoutes);
-    this.router.use("/users", authorize, UserRoutes);
+    this.router.use("/users", UserRoutes);
   }
 }
 
