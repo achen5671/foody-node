@@ -16,19 +16,18 @@ class AuthRoutes extends BaseRouter {
 
   private routes(): void {
     this.router.post(
-      "/join",
+      "/login",
       this.tryWrapper(async (req, res) => {
-        const joinRequest: JoinRequest = req.body;
-        const user = await User.create(joinRequest);
-        await user.save();
+        const { username, password } = req.body;
+        console.log(username, password);
         this.sendSuccessResponse(res);
       })
     );
 
+    // TODO: Incomplete
     this.router.post(
-      "/login",
+      "/logout",
       this.tryWrapper(async (req, res) => {
-        const { username, password } = req.body;
         this.sendSuccessResponse(res);
       })
     );

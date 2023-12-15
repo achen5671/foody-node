@@ -2,11 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { UnauthorizedError } from "./apiErrors";
 
+// TODO: add refresh token
 export const authorize = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
+  console.log("middleware");
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return next(new UnauthorizedError());
