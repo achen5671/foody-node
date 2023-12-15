@@ -8,9 +8,9 @@ const favoriteMeals = {
   name: String,
   calories: Number,
   nutrition: Object,
-  prepTime: Number, // timestamp
+  prepTime: String,
   ingredients: [String],
-  prep: [String],
+  preparations: [String],
 };
 
 export type UserType = {

@@ -7,9 +7,10 @@ export type JoinRequest = {
 };
 
 export type FavoriteMealRequest = {
-  name: string;
-  ingredients: string[];
-  preparation: string[];
-  calories: number;
+  name: String;
+  calories: Number;
   nutrition: Object;
+  prepTime: String;
+  ingredients: [string];
+  preparations: [string];
 };
