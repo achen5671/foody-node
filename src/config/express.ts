@@ -11,12 +11,12 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import compress from "compression";
 import connectMongoDB from "../db/mongodb";
-import { User } from "../api/repositories/UserRepository";
+import { UserType } from "../db/models/User";
 
 declare global {
   namespace Express {
     export interface Request {
-      user: User;
+      user: UserType;
       userId: string;
     }
   }

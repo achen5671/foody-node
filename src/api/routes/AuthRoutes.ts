@@ -19,6 +19,7 @@ class AuthRoutes extends BaseRouter {
     this.router.post(
       "/join",
       this.tryWrapper(async (req, res) => {
+        // TODO: validate joinRequest
         const joinRequest: JoinRequest = req.body;
         // TODO: Move to service layer
         const user = await User.create(joinRequest);
