@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { BaseModel } from "./BaseModel";
+import { ObjectId } from "mongodb";
 
 // NOTE:
 //  favoriteMeals per user should be relatively small, but if it ever sacles,
@@ -14,6 +15,7 @@ const favoriteMeals = {
 };
 
 export type UserType = {
+  _id: ObjectId;
   name: string;
   username: string;
   password: string;
@@ -30,6 +32,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -44,6 +47,7 @@ const userSchema = new mongoose.Schema({
   },
   favoriteMeals: {
     type: [favoriteMeals],
+    defualt: () => [],
   },
   ...BaseModel,
 });

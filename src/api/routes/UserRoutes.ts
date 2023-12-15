@@ -2,6 +2,7 @@ import express from "express";
 import BaseRouter from "./BaseRouter";
 import UserService from "../services/UserService";
 import { FavoriteMealRequest } from "./Request";
+import UserRepository from "../repositories/UserRepository";
 
 class UserRoutes extends BaseRouter {
   public router: express.Router;
@@ -27,6 +28,24 @@ class UserRoutes extends BaseRouter {
       "/logout",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.post(
+      "/self",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req;
+        const user = await UserService.getSelf(userId);
+        this.sendSuccessResponse(res, user);
+      })
+    );
+
+    this.router.post(
+      "/profile/:username",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { username } = req.params;
+        const user = await UserService.getProfile(username);
+        this.sendSuccessResponse(res, user);
       })
     );
 
