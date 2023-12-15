@@ -11,6 +11,16 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import compress from "compression";
 import connectMongoDB from "../db/mongodb";
+import { User } from "../api/repositories/UserRepository";
+
+declare global {
+  namespace Express {
+    export interface Request {
+      user: User;
+      userId: string;
+    }
+  }
+}
 
 const app: Application = express();
 export const port = process.env.PORT || 8000;
@@ -33,7 +43,7 @@ app.use(helmet());
 
 app.use("/v1", routes);
 
-// swagger: not working. low priority. todo some time in the future id necessary.
+// swagger: not working. low priority. todo some time in the future if necessary.
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 export default app;
