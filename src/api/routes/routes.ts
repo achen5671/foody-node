@@ -1,5 +1,8 @@
 import express from "express";
 import OpenAIRoutes from "./OpenAIRoutes";
+import { authorize } from "../middlewares/auth";
+import AuthRoutes from "./AuthRoutes";
+import UserRoutes from "./UserRoutes";
 
 class Routes {
   public router: express.Router;
@@ -18,7 +21,9 @@ class Routes {
 
   private routes(): void {
     this.router.use("/status", (_req, res) => res.send("OK"));
-    this.router.use("/openai", OpenAIRoutes);
+    this.router.use("/auth", AuthRoutes);
+    this.router.use("/openai", authorize, OpenAIRoutes);
+    this.router.use("/users", authorize, UserRoutes);
   }
 }
 
