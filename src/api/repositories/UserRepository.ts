@@ -1,6 +1,6 @@
 import User from "../../db/models/User";
 
-type User = {
+export type User = {
   name: string;
   username: string;
   password: string;
