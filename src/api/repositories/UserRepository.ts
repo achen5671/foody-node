@@ -10,6 +10,10 @@ class UserRepository {
     return User.findOne(request);
   };
 
+  findByUsername = async (username: string) => {
+    return User.findOne({ username });
+  };
+
   addFavoriteMeal = async (userId: ObjectId, request: FavoriteMealRequest) => {
     return User.updateOne(
       { _id: userId },

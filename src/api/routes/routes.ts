@@ -3,6 +3,7 @@ import OpenAIRoutes from "./OpenAIRoutes";
 import { authorize } from "../middlewares/auth";
 import AuthRoutes from "./AuthRoutes";
 import UserRoutes from "./UserRoutes";
+import JwtRoutes from "./JwtRoutes";
 
 class Routes {
   public router: express.Router;
@@ -24,6 +25,9 @@ class Routes {
     this.router.use("/auth", AuthRoutes);
     this.router.use("/openai", authorize, OpenAIRoutes);
     this.router.use("/users", authorize, UserRoutes);
+    // todo: remove at some point
+    // used for development
+    this.router.use("/jwt", JwtRoutes);
   }
 }
 
