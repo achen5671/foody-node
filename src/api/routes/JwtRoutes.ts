@@ -23,13 +23,11 @@ class JwtRoutes extends BaseRouter {
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { username } = req.params;
 
-        const user = await UserRepository.findByUsername(
-          username.toLowerCase()
-        );
+        const user = await UserRepository.findByUsername(username);
 
         if (!user || !user.id) {
           throw new BadRequestError(
-            `User with username '${username.toLowerCase()}' does not exist`
+            `User with username '${username}' does not exist`
           );
         }
 
