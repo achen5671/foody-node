@@ -42,7 +42,7 @@ class UserRepository {
 
   addWeightProgress = async (
     userId: ObjectId,
-    request: WeightProgressRequest
+    request: any // any for now
   ) => {
     return User.updateOne(
       { _id: userId },

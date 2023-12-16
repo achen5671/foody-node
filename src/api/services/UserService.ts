@@ -47,7 +47,15 @@ class UserService {
   };
 
   addWeightProgress = (userId: string, request: WeightProgressRequest) => {
-    return UserRepository.addWeightProgress(userId, request);
+    const formatRequest = {
+      date: new Date(request.date),
+      weight: request.weight,
+    };
+
+    return UserRepository.addWeightProgress(
+      new ObjectId(userId),
+      formatRequest
+    );
   };
 }
 

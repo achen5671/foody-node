@@ -24,6 +24,6 @@ export type FavoriteMealRequest = {
 };
 
 export type WeightProgressRequest = {
-  date: Date;
-  weight: Number;
+  date: string; // use timestamp?
+  weight: number;
 };
