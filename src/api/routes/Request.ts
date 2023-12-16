@@ -1,24 +1,30 @@
 export type JoinRequest = {
   name?: string;
-  username: String;
-  password: String;
-  email?: String;
-  smsNumber?: String;
+  username: string;
+  password: string;
+  email?: string;
+  smsNumber?: string;
 };
 
 export type PatchSelfRequest = {
   name?: string;
-  // password: String; in the future
-  email?: String;
-  weightGoal?: Number;
-  currentWeight?: Number;
+  // password: string; in the future
+  email?: string;
+  weightGoal?: number;
+  currentWeight?: number;
+};
+
+type Nutrition = {
+  protein: number;
+  fiber: number;
+  fat: number;
 };
 
 export type FavoriteMealRequest = {
-  name: String;
-  calories: Number;
-  nutrition: Object;
-  prepTime: String;
+  name: string;
+  calories: number;
+  nutrition: Nutrition;
+  prepTime: string;
   ingredients: [string];
   preparations: [string];
 };
