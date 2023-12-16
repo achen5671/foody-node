@@ -7,7 +7,7 @@ import { FavoriteMealRequest } from "../routes/Request";
 class UserService {
   login = async (username: string, password: string): Promise<UserType> => {
     // TODO: use bcrypt to hash password
-    const user = await UserRepository.findBy({ username, password });
+    const user = await UserRepository.findOne({ username, password });
 
     if (!user) {
       throw new ResourceDoesNotExistError("user not found");
@@ -28,6 +28,14 @@ class UserService {
       new ObjectId(userId),
       new ObjectId(favMealId)
     );
+  };
+
+  getSelf = (userId: string) => {
+    return UserRepository.findOne({ _id: new ObjectId(userId) });
+  };
+
+  getProfile = (username: string) => {
+    return UserRepository.findOne({ username });
   };
 }
 

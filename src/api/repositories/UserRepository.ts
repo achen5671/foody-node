@@ -3,10 +3,7 @@ import User, { UserType } from "../../db/models/User";
 import { FavoriteMealRequest } from "../routes/Request";
 
 class UserRepository {
-  findBy = async (request: {
-    username: string;
-    password: string;
-  }): Promise<UserType | null> => {
+  findOne = async (request: Partial<UserType>): Promise<UserType | null> => {
     return User.findOne(request);
   };
 
