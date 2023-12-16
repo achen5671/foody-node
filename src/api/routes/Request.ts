@@ -1,3 +1,5 @@
+import { MealType } from "../helpers/constants";
+
 export type JoinRequest = {
   name?: string;
   username: string;
@@ -32,4 +34,11 @@ export type FavoriteMealRequest = {
 export type WeightProgressRequest = {
   date: string; // use timestamp?
   weight: number;
+};
+
+export type InsertMealRequest = {
+  name: string;
+  date: string;
+  calories: number;
+  type: MealType;
 };
