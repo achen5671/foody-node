@@ -1,6 +1,6 @@
 import Meal from "../../db/models/Meal";
 import User, { UserType } from "../../db/models/User";
-import { ObjectId } from "mongoose";
+import { ObjectId } from "mongodb";
 
 class MealRepository {
   findOne = (request: any) => {

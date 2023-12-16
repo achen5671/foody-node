@@ -1,10 +1,10 @@
 import { InsertMealRequest } from "../routes/Request";
 import MealRepository from "../repositories/MealRepository";
-import { ObjectId } from "mongoose";
 import {
   BadRequestError,
   ResourceDoesNotExistError,
 } from "../middlewares/apiErrors";
+import { ObjectId } from "mongodb";
 
 class MealService {
   addMeal = async (userId: string, request: InsertMealRequest) => {
@@ -12,17 +12,17 @@ class MealService {
   };
 
   deleteMeal = async (mealId: string) => {
-    const meal = await MealRepository.findOne({ mealId: ObjectId(mealId) });
+    const meal = await MealRepository.findOne({ mealId: new ObjectId(mealId) });
 
     if (!meal) {
-      throw new ResourceDoesNotExistError(`Meal: ${meal._id} does not exist`);
+      throw new ResourceDoesNotExistError(`Meal: ${mealId} does not exist`);
     }
 
     if (meal.createdAt < new Date()) {
       throw new BadRequestError("You cannot delete a past meal");
     }
 
-    await MealRepository.delete(mealId);
+    await MealRepository.delete(new ObjectId(mealId));
   };
 }
 

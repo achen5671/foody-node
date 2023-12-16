@@ -1,6 +1,7 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 import { BaseModel } from "./BaseModel";
 import { MealType } from "../../api/helpers/constants";
+import { ObjectId } from "mongodb";
 
 const mealSchema = new mongoose.Schema({
   name: {
@@ -16,7 +17,8 @@ const mealSchema = new mongoose.Schema({
     required: true,
   },
   type: {
-    type: MealType,
+    type: String,
+    enum: Object.values(MealType),
     required: false,
   },
   calories: {
