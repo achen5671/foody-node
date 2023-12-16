@@ -1,6 +1,10 @@
 import { ObjectId } from "mongodb";
 import User, { UserType } from "../../db/models/User";
-import { FavoriteMealRequest, PatchSelfRequest } from "../routes/Request";
+import {
+  FavoriteMealRequest,
+  PatchSelfRequest,
+  WeightProgressRequest,
+} from "../routes/Request";
 
 class UserRepository {
   findOne = async (request: Partial<UserType>): Promise<UserType | null> => {
@@ -33,6 +37,16 @@ class UserRepository {
           ...request,
         },
       }
+    );
+  };
+
+  addWeightProgress = async (
+    userId: ObjectId,
+    request: any // any for now
+  ) => {
+    return User.updateOne(
+      { _id: userId },
+      { $push: { weightProgress: request } }
     );
   };
 }

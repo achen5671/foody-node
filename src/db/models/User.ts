@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema({
     type: [
       // can I add validator to the object?
       {
-        date: Date,
+        date: Date, // todo: use timestamp? or date object?
         weight: Number,
       },
     ],

@@ -1,7 +1,11 @@
 import express from "express";
 import BaseRouter from "./BaseRouter";
 import UserService from "../services/UserService";
-import { FavoriteMealRequest, PatchSelfRequest } from "./Request";
+import {
+  FavoriteMealRequest,
+  PatchSelfRequest,
+  WeightProgressRequest,
+} from "./Request";
 import UserRepository from "../repositories/UserRepository";
 
 class UserRoutes extends BaseRouter {
@@ -79,6 +83,16 @@ class UserRoutes extends BaseRouter {
         const { userId } = req.params;
         const request: FavoriteMealRequest = req.body;
         await UserService.addFavoriteMeal(userId, request);
+        this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.post(
+      "/weight-progress/:userId",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req.params;
+        const body = req.body as WeightProgressRequest;
+        await UserService.addWeightProgress(userId, body);
         this.sendSuccessResponse(res);
       })
     );
