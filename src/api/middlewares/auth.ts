@@ -8,26 +8,30 @@ export const authorize = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  console.log("middleware");
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return next(new UnauthorizedError());
-  }
+  try {
+    const authHeader = req.headers.authorization;
 
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (!token) {
-    return next(new UnauthorizedError());
-  }
-
-  jwt.verify(
-    token,
-    process.env.ACCESS_TOKEN_SECRET as string,
-    (err: any, user: any) => {
-      if (err) return res.sendStatus(403);
-      req.user = user;
-      req.userId = user.id;
-      next();
+    if (!authHeader) {
+      return next(new UnauthorizedError());
     }
-  );
+
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+      return next(new UnauthorizedError());
+    }
+
+    jwt.verify(
+      token,
+      process.env.SECRET_KEY as string,
+      (err: any, user: any) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        req.userId = user.user_id; // not sure why this is user_id instead of id but meh
+        next();
+      }
+    );
+  } catch (e) {
+    next(e);
+  }
 };

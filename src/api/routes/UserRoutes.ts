@@ -31,16 +31,17 @@ class UserRoutes extends BaseRouter {
       })
     );
 
-    this.router.post(
+    this.router.get(
       "/self",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { userId } = req;
+        console.log(userId);
         const user = await UserService.getSelf(userId);
         this.sendSuccessResponse(res, user);
       })
     );
 
-    this.router.post(
+    this.router.get(
       "/profile/:username",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { username } = req.params;
