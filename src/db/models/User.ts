@@ -44,10 +44,31 @@ const userSchema = new mongoose.Schema({
   },
   smsNumber: {
     type: String,
+    unique: true,
   },
   favoriteMeals: {
     type: [favoriteMeals],
-    defualt: () => [],
+    default: () => [],
+  },
+  weightGoal: {
+    type: Number,
+    min: 69, // nice
+    max: 420,
+  },
+  weightProgress: {
+    type: [
+      // can I add validator to the object?
+      {
+        date: Date,
+        weight: Number,
+      },
+    ],
+    default: () => [],
+  },
+  currentWeight: {
+    type: Number,
+    min: 69, // nice
+    max: 420,
   },
   ...BaseModel,
 });
