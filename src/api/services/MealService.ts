@@ -18,9 +18,9 @@ class MealService {
       throw new ResourceDoesNotExistError(`Meal: ${mealId} does not exist`);
     }
 
-    if (meal.createdAt < new Date()) {
-      throw new BadRequestError("You cannot delete a past meal");
-    }
+    // if (meal.createdAt < new Date()) {
+    //   throw new BadRequestError("You cannot delete a past meal");
+    // }
 
     await MealRepository.delete(new ObjectId(mealId));
   };
