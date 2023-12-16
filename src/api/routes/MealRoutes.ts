@@ -30,7 +30,7 @@ class JwtRoutes extends BaseRouter {
     );
 
     this.router.delete(
-      "/:mealId/delete",
+      "/:mealId",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { mealId } = req.params;
         await MealService.deleteMeal(mealId);
