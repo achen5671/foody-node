@@ -26,6 +26,7 @@ export const authorize = async (
     (err: any, user: any) => {
       if (err) return res.sendStatus(403);
       req.user = user;
+      req.userId = user.id;
       next();
     }
   );
