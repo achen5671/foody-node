@@ -6,6 +6,14 @@ export type JoinRequest = {
   smsNumber?: String;
 };
 
+export type PatchSelfRequest = {
+  name?: string;
+  // password: String; in the future
+  email?: String;
+  weightGoal?: Number;
+  currentWeight?: Number;
+};
+
 export type FavoriteMealRequest = {
   name: String;
   calories: Number;

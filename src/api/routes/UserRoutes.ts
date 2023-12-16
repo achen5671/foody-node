@@ -1,7 +1,7 @@
 import express from "express";
 import BaseRouter from "./BaseRouter";
 import UserService from "../services/UserService";
-import { FavoriteMealRequest } from "./Request";
+import { FavoriteMealRequest, PatchSelfRequest } from "./Request";
 import UserRepository from "../repositories/UserRepository";
 
 class UserRoutes extends BaseRouter {
@@ -38,6 +38,18 @@ class UserRoutes extends BaseRouter {
         console.log(userId);
         const user = await UserService.getSelf(userId);
         this.sendSuccessResponse(res, user);
+      })
+    );
+
+    this.router.patch(
+      "/self",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const body = req.body;
+        const { userId } = req;
+        // todo: look into ways to sanitate request by using type or interface
+        delete body.password;
+        await UserService.patchSelf(userId, body);
+        this.sendSuccessResponse(res);
       })
     );
 

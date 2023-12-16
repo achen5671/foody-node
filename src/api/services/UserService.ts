@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { UserType } from "../../db/models/User";
 import { ResourceDoesNotExistError } from "../middlewares/apiErrors";
 import UserRepository from "../repositories/UserRepository";
-import { FavoriteMealRequest } from "../routes/Request";
+import { FavoriteMealRequest, PatchSelfRequest } from "../routes/Request";
 
 class UserService {
   login = async (username: string, password: string): Promise<UserType> => {
@@ -36,6 +36,10 @@ class UserService {
 
   getProfile = (username: string) => {
     return UserRepository.findOne({ username });
+  };
+
+  patchSelf = (userId: string, request: PatchSelfRequest) => {
+    return UserRepository.patchById(new ObjectId(userId), request);
   };
 }
 

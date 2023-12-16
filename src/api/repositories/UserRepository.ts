@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import User, { UserType } from "../../db/models/User";
-import { FavoriteMealRequest } from "../routes/Request";
+import { FavoriteMealRequest, PatchSelfRequest } from "../routes/Request";
 
 class UserRepository {
   findOne = async (request: Partial<UserType>): Promise<UserType | null> => {
@@ -22,6 +22,17 @@ class UserRepository {
     return User.updateOne(
       { _id: userId },
       { $pull: { favoriteMeals: { _id: mealId } } }
+    );
+  };
+
+  patchById = async (userId: ObjectId, request: PatchSelfRequest) => {
+    return User.updateOne(
+      { _id: userId },
+      {
+        $set: {
+          ...request,
+        },
+      }
     );
   };
 }
