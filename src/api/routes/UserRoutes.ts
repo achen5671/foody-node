@@ -6,7 +6,6 @@ import {
   PatchSelfRequest,
   WeightProgressRequest,
 } from "./Request";
-import UserRepository from "../repositories/UserRepository";
 
 class UserRoutes extends BaseRouter {
   public router: express.Router;
@@ -78,9 +77,9 @@ class UserRoutes extends BaseRouter {
     );
 
     this.router.post(
-      "/favorite-meals/:userId",
+      "/favorite-meals",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
-        const { userId } = req.params;
+        const { userId } = req;
         const request: FavoriteMealRequest = req.body;
         await UserService.addFavoriteMeal(userId, request);
         this.sendSuccessResponse(res);
@@ -88,9 +87,9 @@ class UserRoutes extends BaseRouter {
     );
 
     this.router.post(
-      "/weight-progress/:userId",
+      "/weight-progress",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
-        const { userId } = req.params;
+        const { userId } = req;
         const body = req.body as WeightProgressRequest;
         await UserService.addWeightProgress(userId, body);
         this.sendSuccessResponse(res);
