@@ -12,7 +12,7 @@ class MealService {
   };
 
   deleteMeal = async (mealId: string) => {
-    const meal = await MealRepository.findOne({ mealId: new ObjectId(mealId) });
+    const meal = await MealRepository.findOne({ _id: new ObjectId(mealId) });
 
     if (!meal) {
       throw new ResourceDoesNotExistError(`Meal: ${mealId} does not exist`);

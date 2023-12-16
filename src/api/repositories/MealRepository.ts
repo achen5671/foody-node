@@ -12,7 +12,7 @@ class MealRepository {
   };
 
   delete = async (mealId: ObjectId) => {
-    Meal.deleteOne({ _id: mealId });
+    return Meal.deleteOne({ _id: mealId });
   };
 }
 
