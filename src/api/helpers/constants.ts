@@ -9,3 +9,29 @@ export enum MealType {
   BRUNCH = "Brunch",
   LINNER = "Linner",
 }
+
+export enum ActivityLevel {
+  SEDENTARY = "Sedendary",
+  LIGHTLY = "Lightly",
+  MODERATE = "Moderate",
+  VERY = "Very",
+  EXTRA = "Extra",
+}
+
+export const ActivityFactor: Map<ActivityLevel, number> = new Map([
+  [ActivityLevel.SEDENTARY, 1.2],
+  [ActivityLevel.LIGHTLY, 1.375],
+  [ActivityLevel.MODERATE, 1.55],
+  [ActivityLevel.VERY, 1.725],
+  [ActivityLevel.EXTRA, 1.9],
+]);
+
+export enum Sex {
+  MALE = "male",
+  FEMALE = "female",
+}
+
+export enum WeightType {
+  POUNDS = "pounds",
+  KILOGRAM = "kilogram",
+}

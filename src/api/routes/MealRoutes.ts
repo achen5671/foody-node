@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import { BadRequestError } from "../middlewares/apiErrors";
 import MealService from "../services/MealService";
 
-class JwtRoutes extends BaseRouter {
+class MealRoutes extends BaseRouter {
   public router: express.Router;
 
   constructor() {
@@ -40,4 +40,4 @@ class JwtRoutes extends BaseRouter {
   }
 }
 
-export default new JwtRoutes().router;
+export default new MealRoutes().router;
