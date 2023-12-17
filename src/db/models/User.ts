@@ -70,6 +70,10 @@ const userSchema = new mongoose.Schema({
     min: 69, // nice
     max: 420,
   },
+  dailyTDEE: {
+    type: Number,
+    min: 0,
+  },
   ...BaseModel,
 });
 

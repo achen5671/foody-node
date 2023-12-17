@@ -14,6 +14,7 @@ export type PatchSelfRequest = {
   email?: string;
   weightGoal?: number;
   currentWeight?: number;
+  dailyTDEE?: number;
 };
 
 type Nutrition = {
