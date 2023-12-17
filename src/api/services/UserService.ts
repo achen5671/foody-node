@@ -9,6 +9,10 @@ import {
   WeightProgressRequest,
 } from "../routes/Request";
 import LogicService from "./LogicService";
+import {
+  PROJECTED_INTERVAL_IN_MONTHS,
+  WEEKS_PER_MONTH,
+} from "../helpers/constants";
 
 class UserService {
   login = async (username: string, password: string): Promise<UserType> => {
@@ -63,6 +67,7 @@ class UserService {
   // intake calories < than tdee to lose weight
   // tdee: Total Daily Energy Expenditure
   // bmr: Basal Metabolic Rate
+  // todo: need to add calorie surplus to tdee.
   calculateCaloricIntake = async (
     request: CalculateCaloricIntakeRequest
   ): Promise<number> => {
@@ -70,6 +75,28 @@ class UserService {
     const bmr = LogicService.calculateBMR(request);
     const tdee = LogicService.calculateTDEE(bmr, request.activityLevel);
     return tdee;
+  };
+
+  projectedWeightProgress = async (userId: string) => {
+    const user = await UserRepository.findOne({ _id: new ObjectId(userId) });
+
+    if (!user) {
+      throw new ResourceDoesNotExistError("user does not exist");
+    }
+
+    // hard coded for now.
+    // todo: input should be entered by the user
+    const weightLosePerWeek = 1;
+    const months = new Array(PROJECTED_INTERVAL_IN_MONTHS);
+    let weight = user.currentWeight;
+
+    months.forEach((month) => {
+      month = weight - WEEKS_PER_MONTH * weightLosePerWeek;
+    });
+
+    return {
+      months,
+    };
   };
 }
 

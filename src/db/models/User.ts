@@ -21,6 +21,7 @@ export type UserType = {
   password: string;
   email: string;
   smsNumber: string;
+  currentWeight: number;
   updatedAt: string;
   createdAt: string;
 };

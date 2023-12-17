@@ -105,6 +105,15 @@ class UserRoutes extends BaseRouter {
         this.sendSuccessResponse(res, { calories });
       })
     );
+
+    this.router.get(
+      "/weight-progress/projected/:userId",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req.params;
+        const projected = await UserService.projectedWeightProgress(userId);
+        this.sendSuccessResponse(res, { projected });
+      })
+    );
   }
 }
 
