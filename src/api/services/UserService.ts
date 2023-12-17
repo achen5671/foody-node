@@ -10,6 +10,7 @@ import {
 } from "../routes/Request";
 import LogicService from "./LogicService";
 import {
+  Fitness,
   PROJECTED_INTERVAL_IN_MONTHS,
   WEEKS_PER_MONTH,
 } from "../helpers/constants";
@@ -74,7 +75,12 @@ class UserService {
     // todo: validateRequest
     const bmr = LogicService.calculateBMR(request);
     const tdee = LogicService.calculateTDEE(bmr, request.activityLevel);
-    return tdee;
+    const change = LogicService.calculateCaloricDeficitOrSurplus(
+      request.weightToLoseEveryWeek ?? 1,
+      7
+    );
+
+    return request.fitnessType === Fitness.GAIN ? tdee + change : tdee - change;
   };
 
   projectedWeightProgress = async (userId: string) => {
