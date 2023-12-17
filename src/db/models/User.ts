@@ -75,6 +75,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     min: 0,
   },
+  fitness: {
+    weight: Number,
+    height: Number,
+    age: Number, // todo: use birthday to calculate age
+  },
+  birthday: {
+    type: Date,
+  },
   ...BaseModel,
 });
 
