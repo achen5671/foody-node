@@ -2,6 +2,7 @@ import express from "express";
 import BaseRouter from "./BaseRouter";
 import UserService from "../services/UserService";
 import {
+  CalculateCaloricIntakeRequest,
   FavoriteMealRequest,
   PatchSelfRequest,
   WeightProgressRequest,
@@ -93,6 +94,15 @@ class UserRoutes extends BaseRouter {
         const body = req.body as WeightProgressRequest;
         await UserService.addWeightProgress(userId, body);
         this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.post(
+      "/calories/calculate",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const body = req.body as CalculateCaloricIntakeRequest;
+        const calories = await UserService.calculateCaloricIntake(body);
+        this.sendSuccessResponse(res, { calories });
       })
     );
   }

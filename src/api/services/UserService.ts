@@ -3,10 +3,12 @@ import { UserType } from "../../db/models/User";
 import { ResourceDoesNotExistError } from "../middlewares/apiErrors";
 import UserRepository from "../repositories/UserRepository";
 import {
+  CalculateCaloricIntakeRequest,
   FavoriteMealRequest,
   PatchSelfRequest,
   WeightProgressRequest,
 } from "../routes/Request";
+import LogicService from "./LogicService";
 
 class UserService {
   login = async (username: string, password: string): Promise<UserType> => {
@@ -56,6 +58,18 @@ class UserService {
       new ObjectId(userId),
       formatRequest
     );
+  };
+
+  // intake calories < than tdee to lose weight
+  // tdee: Total Daily Energy Expenditure
+  // bmr: Basal Metabolic Rate
+  calculateCaloricIntake = async (
+    request: CalculateCaloricIntakeRequest
+  ): Promise<number> => {
+    // todo: validateRequest
+    const bmr = LogicService.calculateBMR(request);
+    const tdee = LogicService.calculateTDEE(bmr, request.activityLevel);
+    return tdee;
   };
 }
 

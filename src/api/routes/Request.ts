@@ -1,4 +1,4 @@
-import { MealType } from "../helpers/constants";
+import { ActivityLevel, MealType, Sex, WeightType } from "../helpers/constants";
 
 export type JoinRequest = {
   name?: string;
@@ -41,4 +41,13 @@ export type InsertMealRequest = {
   date: string;
   calories: number;
   type: MealType;
+};
+
+export type CalculateCaloricIntakeRequest = {
+  weight: number;
+  height: number;
+  age: number;
+  sex: Sex;
+  weightType: WeightType;
+  activityLevel: ActivityLevel;
 };
