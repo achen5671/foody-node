@@ -3,6 +3,7 @@ import { BadRequestError } from "../middlewares/apiErrors";
 import {
   ActivityFactor,
   ActivityLevel,
+  CALORIES_PER_POUND,
   Sex,
   WeightType,
 } from "../helpers/constants";
@@ -38,6 +39,10 @@ class LogicService {
     const activityFactor = ActivityFactor.get(activityLevel) as number;
     let TDEE: number = bmr * activityFactor;
     return TDEE;
+  };
+
+  calculateCaloricDeficitOrSurplus = (change: number, days: number) => {
+    return (change * CALORIES_PER_POUND) / days;
   };
 }
 

@@ -21,6 +21,7 @@ export type UserType = {
   password: string;
   email: string;
   smsNumber: string;
+  currentWeight: number;
   updatedAt: string;
   createdAt: string;
 };
@@ -74,6 +75,12 @@ const userSchema = new mongoose.Schema({
     type: Number,
     min: 0,
   },
+  fitness: {
+    weight: Number,
+    height: Number,
+    age: Number, // todo: use birthday to calculate age
+  },
+  birthday: Date,
   ...BaseModel,
 });
 

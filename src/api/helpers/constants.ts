@@ -35,3 +35,9 @@ export enum WeightType {
   POUNDS = "pounds",
   KILOGRAM = "kilogram",
 }
+
+export const CALORIES_PER_POUND = 3500;
+
+export const PROJECTED_INTERVAL_IN_MONTHS = 6;
+
+export const WEEKS_PER_MONTH = 4.34525;
