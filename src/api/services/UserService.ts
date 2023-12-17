@@ -84,6 +84,8 @@ class UserService {
       throw new ResourceDoesNotExistError("user does not exist");
     }
 
+    // hard coded for now.
+    // todo: input should be entered by the user
     const weightLosePerWeek = 1;
     const months = new Array(PROJECTED_INTERVAL_IN_MONTHS);
     let weight = user.currentWeight;
