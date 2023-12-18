@@ -21,6 +21,8 @@ export type PatchSelfRequest = {
   weightGoal?: number;
   currentWeight?: number;
   dailyTDEE?: number;
+  profilePictureUrl?: string;
+  profileBannerUrl?: string;
 };
 
 type Nutrition = {

@@ -83,6 +83,8 @@ const userSchema = new mongoose.Schema({
   birthday: {
     type: Date,
   },
+  profilePictureUrl: String, // todo: default this to some image
+  profileBannerUrl: String, // todo: default this to some image
   ...BaseModel,
 });
 
