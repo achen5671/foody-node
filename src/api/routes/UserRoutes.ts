@@ -106,7 +106,7 @@ class UserRoutes extends BaseRouter {
       })
     );
 
-    this.router.get(
+    this.router.post(
       "/weight-progress/:submissionId/delete",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { userId } = req;
