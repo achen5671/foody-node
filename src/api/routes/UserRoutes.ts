@@ -106,12 +106,13 @@ class UserRoutes extends BaseRouter {
       })
     );
 
-    this.router.get(
-      "/weight-progress/projected/:userId",
+    this.router.post(
+      "/weight-progress/:submissionId/delete",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
-        const { userId } = req.params;
-        const projected = await UserService.projectedWeightProgress(userId);
-        this.sendSuccessResponse(res, { projected });
+        const { userId } = req;
+        const { submissionId } = req.params;
+        await UserService.deleteWeightSubmission(userId, submissionId);
+        this.sendSuccessResponse(res);
       })
     );
   }

@@ -49,6 +49,13 @@ class UserRepository {
       { $push: { weightProgress: request } }
     );
   };
+
+  deleteWeightSubmission = async (userId: ObjectId, submissionId: ObjectId) => {
+    return User.updateOne(
+      { _id: userId },
+      { $pull: { weightProgress: { _id: submissionId } } }
+    );
+  };
 }
 
 export default new UserRepository();

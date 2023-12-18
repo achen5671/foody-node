@@ -104,6 +104,13 @@ class UserService {
       months,
     };
   };
+
+  deleteWeightSubmission = async (userId: string, submissionId: string) => {
+    await UserRepository.deleteWeightSubmission(
+      new ObjectId(userId),
+      new ObjectId(submissionId)
+    );
+  };
 }
 
 export default new UserService();

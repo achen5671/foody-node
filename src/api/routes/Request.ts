@@ -58,5 +58,5 @@ export type CalculateCaloricIntakeRequest = {
   weightType: WeightType;
   activityLevel: ActivityLevel;
   fitnessType: Fitness;
-  weightLoseEveryWeek: number;
+  weightToLoseEveryWeek: number;
 };
