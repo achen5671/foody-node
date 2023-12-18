@@ -5,13 +5,17 @@ import {
   ResourceDoesNotExistError,
 } from "../middlewares/apiErrors";
 import { ObjectId } from "mongodb";
+import { IMeal } from "../../db/models/Meal";
 
 class MealService {
-  addMeal = async (userId: string, request: InsertMealRequest) => {
-    await MealRepository.insert({ userId, ...request });
+  addMeal = async (
+    userId: string,
+    request: InsertMealRequest
+  ): Promise<IMeal | null> => {
+    return MealRepository.insert({ userId, ...request });
   };
 
-  deleteMeal = async (mealId: string) => {
+  deleteMeal = async (mealId: string): Promise<void> => {
     const meal = await MealRepository.findOne({ _id: new ObjectId(mealId) });
 
     if (!meal) {

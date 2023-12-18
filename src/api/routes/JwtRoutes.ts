@@ -25,18 +25,18 @@ class JwtRoutes extends BaseRouter {
 
         const user = await UserRepository.findByUsername(username);
 
-        if (!user || !user.id) {
+        if (!user || !user._id) {
           throw new BadRequestError(
             `User with username '${username}' does not exist`
           );
         }
 
         this.sendSuccessResponse(res, {
-          userId: user.id,
+          userId: user._id,
           username: user.username,
           bearerAuth: `Bearer ${String(
             await jwt.sign(
-              { user_id: user.id },
+              { user_id: user._id },
               process.env.SECRET_KEY as string
             )
           )}`,

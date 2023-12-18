@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { UserType } from "../../db/models/User";
+import { IUser } from "../../db/models/User";
 import { ResourceDoesNotExistError } from "../middlewares/apiErrors";
 import UserRepository from "../repositories/UserRepository";
 import {
@@ -16,7 +16,7 @@ import {
 } from "../helpers/constants";
 
 class UserService {
-  login = async (username: string, password: string): Promise<UserType> => {
+  login = async (username: string, password: string): Promise<IUser> => {
     // TODO: use bcrypt to hash password
     const user = await UserRepository.findOne({ username, password });
 
@@ -30,39 +30,45 @@ class UserService {
   addFavoriteMeal = async (
     userId: string,
     favMealRequest: FavoriteMealRequest
-  ) => {
+  ): Promise<void> => {
     await UserRepository.addFavoriteMeal(new ObjectId(userId), favMealRequest);
   };
 
-  deleteFavoriteMeal = async (userId: string, favMealId: string) => {
+  deleteFavoriteMeal = async (
+    userId: string,
+    favMealId: string
+  ): Promise<void> => {
     await UserRepository.deleteFavoriteMeal(
       new ObjectId(userId),
       new ObjectId(favMealId)
     );
   };
 
-  getSelf = (userId: string) => {
+  getSelf = (userId: string): Promise<IUser | null> => {
     return UserRepository.findOne({ _id: new ObjectId(userId) });
   };
 
-  getProfile = (username: string) => {
+  getProfile = (username: string): Promise<IUser | null> => {
     return UserRepository.findOne({ username });
   };
 
-  patchSelf = (userId: string, request: PatchSelfRequest) => {
+  patchSelf = (
+    userId: string,
+    request: PatchSelfRequest
+  ): Promise<IUser | null> => {
     return UserRepository.patchById(new ObjectId(userId), request);
   };
 
-  addWeightProgress = (userId: string, request: WeightProgressRequest) => {
+  addWeightProgress = async (
+    userId: string,
+    request: WeightProgressRequest
+  ): Promise<void> => {
     const formatRequest = {
       date: new Date(request.date),
       weight: request.weight,
     };
 
-    return UserRepository.addWeightProgress(
-      new ObjectId(userId),
-      formatRequest
-    );
+    await UserRepository.addWeightProgress(new ObjectId(userId), formatRequest);
   };
 
   // intake calories < than tdee to lose weight
@@ -83,7 +89,9 @@ class UserService {
     return request.fitnessType === Fitness.GAIN ? tdee + change : tdee - change;
   };
 
-  projectedWeightProgress = async (userId: string) => {
+  projectedWeightProgress = async (
+    userId: string
+  ): Promise<{ months: number[] }> => {
     const user = await UserRepository.findOne({ _id: new ObjectId(userId) });
 
     if (!user) {
@@ -105,7 +113,11 @@ class UserService {
     };
   };
 
-  deleteWeightSubmission = async (userId: string, submissionId: string) => {
+  // todo: only can delete weight submission for the given day. look at MealService.deleteMeal as reference
+  deleteWeightSubmission = async (
+    userId: string,
+    submissionId: string
+  ): Promise<void> => {
     await UserRepository.deleteWeightSubmission(
       new ObjectId(userId),
       new ObjectId(submissionId)

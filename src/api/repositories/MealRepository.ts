@@ -1,18 +1,17 @@
-import Meal from "../../db/models/Meal";
-import User, { UserType } from "../../db/models/User";
+import Meal, { IMeal } from "../../db/models/Meal";
 import { ObjectId } from "mongodb";
 
 class MealRepository {
-  findOne = (request: any) => {
+  findOne = (request: any): Promise<IMeal | null> => {
     return Meal.findOne(request);
   };
 
-  insert = async (request: any) => {
+  insert = async (request: any): Promise<IMeal | null> => {
     return Meal.create(request);
   };
 
-  delete = async (mealId: ObjectId) => {
-    return Meal.deleteOne({ _id: mealId });
+  delete = async (mealId: ObjectId): Promise<void> => {
+    await Meal.deleteOne({ _id: mealId });
   };
 }
 

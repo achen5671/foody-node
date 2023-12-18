@@ -1,15 +1,25 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { BaseModel } from "./BaseModel";
 import { MealType } from "../../api/helpers/constants";
 import { ObjectId } from "mongodb";
+import User from "./User";
 
-const mealSchema = new mongoose.Schema({
+export interface IMeal {
+  name: string;
+  userId: ObjectId;
+  date: Date;
+  type: string;
+  calories: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+const mealSchema = new mongoose.Schema<IMeal>({
   name: {
     type: String,
   },
   userId: {
-    type: ObjectId,
-    ref: "User",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User,
     required: true,
   },
   date: {

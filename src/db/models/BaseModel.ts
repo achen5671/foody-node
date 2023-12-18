@@ -8,4 +8,5 @@ export const BaseModel = {
     type: Date,
     default: () => Date.now(),
   },
+  // deletedAt?
 };
