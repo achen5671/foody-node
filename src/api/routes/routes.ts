@@ -23,12 +23,14 @@ class Routes {
 
   private routes(): void {
     this.router.use("/status", (_req, res) => res.send("OK"));
-    this.router.use("/auth", AuthRoutes);
+
     this.router.use("/openai", authorize, OpenAIRoutes);
     this.router.use("/users", authorize, UserRoutes);
     this.router.use("/meals", authorize, MealRoutes);
+
     // todo: remove at some point
     // used for development
+    this.router.use("/auth", AuthRoutes);
     this.router.use("/jwt", JwtRoutes);
   }
 }
