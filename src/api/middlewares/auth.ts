@@ -21,7 +21,7 @@ export const authorize = async (
       return next(new UnauthorizedError());
     }
 
-    jwt.verify(
+    await jwt.verify(
       token,
       process.env.SECRET_KEY as string,
       (err: any, user: any) => {

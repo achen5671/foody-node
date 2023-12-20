@@ -16,10 +16,10 @@ const favoriteMeals = {
 
 export interface IUser {
   _id: Types.ObjectId;
-  name: string;
+  name: string; // todo: split to firstname lastname schema
   username: string;
   password: string;
-  email?: string;
+  email: string;
   smsNumber?: string;
   favoriteMeals: [];
   weightGoal?: number;
@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   email: {
     type: String,
+    required: true,
     lowercase: true,
   },
   smsNumber: {

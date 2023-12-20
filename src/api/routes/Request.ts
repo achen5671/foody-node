@@ -62,3 +62,8 @@ export type CalculateCaloricIntakeRequest = {
   fitnessType: Fitness;
   weightToLoseEveryWeek: number;
 };
+
+export type LoginRequest = {
+  username: string;
+  password: string;
+};
