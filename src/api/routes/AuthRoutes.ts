@@ -18,14 +18,12 @@ class AuthRoutes extends BaseRouter {
   private routes(): void {
     // TODO: send verification code to verify account before auth
     this.router.post(
-      "/join",
+      "/register",
       this.tryWrapper(async (req, res) => {
         // TODO: validate joinRequest
         const joinRequest: JoinRequest = req.body;
-        // TODO: Move to service layer
-        const user = await User.create(joinRequest);
-        await user.save();
-        this.sendSuccessResponse(res);
+        const token = await AuthService.register(joinRequest);
+        this.sendSuccessResponse(res, { token });
       })
     );
 

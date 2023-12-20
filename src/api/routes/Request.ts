@@ -7,10 +7,10 @@ import {
 } from "../helpers/constants";
 
 export type JoinRequest = {
-  name?: string;
+  name: string;
   username: string;
   password: string;
-  email?: string;
+  email: string;
   smsNumber?: string;
 };
 

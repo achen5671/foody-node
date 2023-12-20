@@ -55,6 +55,8 @@ const userSchema = new mongoose.Schema<IUser>({
   smsNumber: {
     type: String,
     unique: true,
+    index: true,
+    required: false,
   },
   favoriteMeals: {
     type: [favoriteMeals],
