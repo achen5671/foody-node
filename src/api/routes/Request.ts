@@ -32,12 +32,12 @@ type Nutrition = {
 };
 
 export type FavoriteMealRequest = {
-  name: string;
+  recipe_name: string;
   calories: number;
   nutrition: Nutrition;
-  prepTime: string;
-  ingredients: [string];
-  preparations: [string];
+  prepTime?: string;
+  ingredients?: [string];
+  preparations?: [string];
 };
 
 export type WeightProgressRequest = {

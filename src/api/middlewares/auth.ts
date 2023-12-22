@@ -27,7 +27,7 @@ export const authorize = async (
       (err: any, user: any) => {
         if (err) return res.sendStatus(403);
         req.user = user;
-        req.userId = user.user_id; // not sure why this is user_id instead of id but meh
+        req.userId = user.userId; // not sure why this is userId instead of id but meh
         next();
       }
     );
