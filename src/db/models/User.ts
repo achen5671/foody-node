@@ -10,7 +10,7 @@ const favoriteMeals = {
   calories: Number,
   nutrition: Object,
   prepTime: String,
-  ingredients: [String],
+  ingredients: Object,
   preparations: [String],
 };
 
