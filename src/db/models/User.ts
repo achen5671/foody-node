@@ -1,7 +1,7 @@
 import mongoose, { Types } from "mongoose";
 import { BaseModel } from "./BaseModel";
 import { ObjectId } from "mongodb";
-import * as DefaultPFP from "../../assets/default.png";
+
 // NOTE:
 //  favoriteMeals per user should be relatively small, but if it ever scales,
 //  update favoriteMeals to it's own schema if the document exceeds mongo's 16MB limit
@@ -99,9 +99,10 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   profilePictureUrl: {
     type: String,
-    default: DefaultPFP,
-  }, // todo: default this to some image
-  profileBannerUrl: String, // todo: default this to some image
+  },
+  profileBannerUrl: {
+    type: String,
+  },
   ...BaseModel,
 });
 
