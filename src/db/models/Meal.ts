@@ -16,6 +16,7 @@ export interface IMeal {
 const mealSchema = new mongoose.Schema<IMeal>({
   name: {
     type: String,
+    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

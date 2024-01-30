@@ -16,7 +16,10 @@ const favoriteMeals = {
 
 export interface IUser {
   _id: Types.ObjectId;
-  name: string; // todo: split to firstname lastname schema
+  name: {
+    firstName: string;
+    lastName: string;
+  };
   username: string;
   password: string;
   email: string;
@@ -36,7 +39,11 @@ export interface IUser {
 
 const userSchema = new mongoose.Schema<IUser>({
   name: {
-    type: String,
+    type: {
+      firstName: String,
+      lastName: String,
+    },
+    required: true,
   },
   username: {
     type: String,
@@ -66,6 +73,7 @@ const userSchema = new mongoose.Schema<IUser>({
     type: Number,
     min: 69, // nice
     max: 420,
+    required: false,
   },
   weightProgress: {
     type: [
@@ -81,10 +89,12 @@ const userSchema = new mongoose.Schema<IUser>({
     type: Number,
     min: 69, // nice
     max: 420,
+    required: false,
   },
   dailyTDEE: {
     type: Number,
     min: 0,
+    required: false,
   },
   fitness: {
     type: {
@@ -96,12 +106,15 @@ const userSchema = new mongoose.Schema<IUser>({
   },
   birthday: {
     type: Date,
+    required: false,
   },
   profilePictureUrl: {
     type: String,
+    required: false,
   },
   profileBannerUrl: {
     type: String,
+    required: false,
   },
   ...BaseModel,
 });
