@@ -13,6 +13,7 @@ export interface IMeal {
   createdAt: Date;
   updatedAt: Date;
 }
+
 const mealSchema = new mongoose.Schema<IMeal>({
   name: {
     type: String,

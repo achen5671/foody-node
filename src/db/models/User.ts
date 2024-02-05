@@ -24,6 +24,7 @@ export interface IUser {
   password: string;
   email: string;
   smsNumber?: string;
+  bio?: string;
   favoriteMeals: [];
   weightGoal?: number;
   weightProgress: [];
@@ -63,6 +64,10 @@ const userSchema = new mongoose.Schema<IUser>({
     type: String,
     unique: true,
     index: true,
+    required: false,
+  },
+  bio: {
+    type: String,
     required: false,
   },
   favoriteMeals: {
