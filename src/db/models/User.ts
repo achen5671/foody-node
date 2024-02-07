@@ -34,6 +34,7 @@ export interface IUser {
   birthday: Date;
   profilePictureUrl?: string;
   profileBannerUrl?: string;
+  dailyCaloricIntake: number;
   updatedAt: Date;
   createdAt: Date;
 }
@@ -120,6 +121,11 @@ const userSchema = new mongoose.Schema<IUser>({
   profileBannerUrl: {
     type: String,
     required: false,
+  },
+  dailyCaloricIntake: {
+    type: Number,
+    required: false,
+    min: 0,
   },
   ...BaseModel,
 });

@@ -8,7 +8,7 @@ import {
 
 class UserRepository {
   findOne = async (request: Partial<IUser>): Promise<IUser | null> => {
-    return User.findOne(request);
+    return User.findOne(request).lean();
   };
 
   findByUsername = async (username: string): Promise<IUser | null> => {

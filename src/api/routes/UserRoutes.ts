@@ -22,7 +22,6 @@ class UserRoutes extends BaseRouter {
       "/login",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { username, password } = req.body;
-        console.log(username, password);
         this.sendSuccessResponse(res);
       })
     );
@@ -39,9 +38,8 @@ class UserRoutes extends BaseRouter {
       "/self",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const { userId } = req;
-        console.log(userId);
-        const user = await UserService.getSelf(userId);
-        this.sendSuccessResponse(res, user);
+        const user = await UserService.getProfile(userId);
+        this.sendSuccessResponse(res, { user: user });
       })
     );
 

@@ -4,6 +4,8 @@ import { MealType } from "../../api/helpers/constants";
 import { ObjectId } from "mongodb";
 import User from "./User";
 
+// todo: rename to MealSubmission?
+// Meal: what user has eaten on said day
 export interface IMeal {
   name: string;
   userId: ObjectId;

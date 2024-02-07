@@ -14,6 +14,7 @@ import {
   PROJECTED_INTERVAL_IN_MONTHS,
   WEEKS_PER_MONTH,
 } from "../helpers/constants";
+import MealRepository from "../repositories/MealRepository";
 
 class UserService {
   login = async (username: string, password: string): Promise<IUser> => {
@@ -44,12 +45,26 @@ class UserService {
     );
   };
 
+  // DEPRECATED.
+  // Use getProfile()
   getSelf = (userId: string): Promise<IUser | null> => {
     return UserRepository.findOne({ _id: new ObjectId(userId) });
   };
 
-  getProfile = (username: string): Promise<IUser | null> => {
-    return UserRepository.findOne({ username });
+  getProfile = async (
+    userId: string
+  ): Promise<(IUser & { todayCalorieIntake?: number }) | null> => {
+    const user = await UserRepository.findOne({ _id: new ObjectId(userId) });
+
+    if (!user) {
+      throw new ResourceDoesNotExistError("user does not exist");
+    }
+
+    const todayCalorieIntake = await MealRepository.getTodayCaloricIntake({
+      userId: user._id,
+    });
+
+    return { ...user, todayCalorieIntake: todayCalorieIntake[0].totalCalories };
   };
 
   patchSelf = (
