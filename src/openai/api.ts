@@ -21,6 +21,8 @@ async function initAssistant() {
 // todo: uncomment
 // const assistant = initAssistant();
 
+const MAX_ATTEMPTS = 10;
+
 class OpenAIClient {
   getFood = async (ingredients: string[]) => {
     // intialize assistent to when server starts?
@@ -61,9 +63,15 @@ class OpenAIClient {
       //  * check other status
       // See: https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
       // todo: move to own function
+      let attempts = 0;
       while (runStatus.status !== "completed") {
         await new Promise((resolve) => setTimeout(resolve, 3000));
         runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+        attempts++;
+
+        if (attempts === MAX_ATTEMPTS) {
+          throw new Error("Error: Reached max attempts");
+        }
       }
 
       const messages = await openai.beta.threads.messages.list(thread.id);

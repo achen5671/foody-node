@@ -64,7 +64,10 @@ class UserService {
       userId: user._id,
     });
 
-    return { ...user, todayCalorieIntake: todayCalorieIntake[0].totalCalories };
+    return {
+      ...user,
+      todayCalorieIntake: todayCalorieIntake[0]?.totalCalories,
+    };
   };
 
   patchSelf = (
