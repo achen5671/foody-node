@@ -7,6 +7,7 @@ import {
   PatchSelfRequest,
   WeightProgressRequest,
 } from "./Request";
+import { BadRequestError } from "../middlewares/apiErrors";
 
 class UserRoutes extends BaseRouter {
   public router: express.Router;
@@ -110,6 +111,36 @@ class UserRoutes extends BaseRouter {
         const { userId } = req;
         const { submissionId } = req.params;
         await UserService.deleteWeightSubmission(userId, submissionId);
+        this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.post(
+      "/follow/:targetUserId",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req;
+        const { targetUserId } = req.params;
+        if (userId === targetUserId)
+          throw new BadRequestError("Cannot follow yourself");
+        await UserService.follow(userId, targetUserId);
+        this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.get(
+      "/followers",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req;
+        await UserService.getFollowers(userId);
+        this.sendSuccessResponse(res);
+      })
+    );
+
+    this.router.get(
+      "/following",
+      this.tryWrapper(async (req: express.Request, res: express.Response) => {
+        const { userId } = req;
+        await UserService.getFollowing(userId);
         this.sendSuccessResponse(res);
       })
     );

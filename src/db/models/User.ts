@@ -35,6 +35,9 @@ export interface IUser {
   profilePictureUrl?: string;
   profileBannerUrl?: string;
   dailyCaloricIntake: number;
+  followers: string[];
+  following: string[];
+  youFollow: boolean;
   updatedAt: Date;
   createdAt: Date;
 }
@@ -126,6 +129,21 @@ const userSchema = new mongoose.Schema<IUser>({
     type: Number,
     required: false,
     min: 0,
+  },
+  followers: {
+    type: [String],
+    required: false,
+    default: () => [],
+  },
+  following: {
+    type: [String],
+    required: false,
+    default: () => [],
+  },
+  youFollow: {
+    type: Boolean,
+    required: true,
+    default: () => false,
   },
   ...BaseModel,
 });

@@ -141,6 +141,28 @@ class UserService {
       new ObjectId(submissionId)
     );
   };
+
+  follow = async (userId: string, targetUserId: string): Promise<void> => {
+    await UserRepository.follow(
+      new ObjectId(userId),
+      new ObjectId(targetUserId)
+    );
+  };
+
+  unfollow = async (userId: string, targetUserId: string): Promise<void> => {
+    await UserRepository.unfollow(
+      new ObjectId(userId),
+      new ObjectId(targetUserId)
+    );
+  };
+
+  getFollowing = async (userId: string) => {
+    return UserRepository.getFollowing(new ObjectId(userId));
+  };
+
+  getFollowers = async (userId: string) => {
+    return UserRepository.getFollowers(new ObjectId(userId));
+  };
 }
 
 export default new UserService();

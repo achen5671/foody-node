@@ -68,6 +68,24 @@ class UserRepository {
       { $pull: { weightProgress: { _id: submissionId } } }
     );
   };
+
+  follow = async (userId: ObjectId, targetUserId: ObjectId) => {
+    await User.updateOne(
+      { _id: userId },
+      { $push: { followers: targetUserId } }
+    );
+  };
+
+  unfollow = async (userId: ObjectId, targetUserId: ObjectId) => {
+    await User.updateOne(
+      { _id: userId },
+      { $pull: { followers: targetUserId } }
+    );
+  };
+
+  getFollowing = async (userId: ObjectId) => {};
+
+  getFollowers = async (userId: ObjectId) => {};
 }
 
 export default new UserRepository();
