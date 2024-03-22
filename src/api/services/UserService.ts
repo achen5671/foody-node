@@ -98,6 +98,7 @@ class UserService {
   ): Promise<number> => {
     // todo: validateRequest
     const bmr = LogicService.calculateBMR(request);
+    console.log(request);
     const tdee = LogicService.calculateTDEE(bmr, request.activityLevel);
     const change = LogicService.calculateCaloricDeficitOrSurplus(
       request.weightToLoseEveryWeek ?? 1,

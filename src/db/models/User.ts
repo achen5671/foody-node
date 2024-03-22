@@ -1,6 +1,7 @@
 import mongoose, { Types } from "mongoose";
 import { BaseModel } from "./BaseModel";
 import { ObjectId } from "mongodb";
+import { Sex } from "../../api/helpers/constants";
 
 // NOTE:
 //  favoriteMeals per user should be relatively small, but if it ever scales,
@@ -25,6 +26,7 @@ export interface IUser {
   email: string;
   smsNumber?: string;
   bio?: string;
+  sex: Sex;
   favoriteMeals: [];
   weightGoal?: number;
   weightProgress: [];
@@ -73,6 +75,10 @@ const userSchema = new mongoose.Schema<IUser>({
   bio: {
     type: String,
     required: false,
+  },
+  sex: {
+    type: String,
+    required: true,
   },
   favoriteMeals: {
     type: [favoriteMeals],
