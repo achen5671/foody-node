@@ -19,7 +19,7 @@ export type PatchSelfRequest = {
   // password: string; in the future
   email?: string;
   weightGoal?: number;
-  currentWeight?: number;
+  weight?: number;
   dailyTDEE?: number;
   profilePictureUrl?: string;
   profileBannerUrl?: string;

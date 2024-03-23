@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose, { Types, Document } from "mongoose";
 import { BaseModel } from "./BaseModel";
 import { ObjectId } from "mongodb";
 import { Sex } from "../../api/helpers/constants";
@@ -30,7 +30,7 @@ export interface IUser {
   favoriteMeals: [];
   weightGoal?: number;
   weightProgress: [];
-  currentWeight: number;
+  weight: number;
   dailyTDEE: number;
   fitness?: {};
   birthday: Date;
@@ -42,6 +42,8 @@ export interface IUser {
   youFollow: boolean;
   updatedAt: Date;
   createdAt: Date;
+
+  getAge(): number;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -100,7 +102,7 @@ const userSchema = new mongoose.Schema<IUser>({
     ],
     default: () => [],
   },
-  currentWeight: {
+  weight: {
     type: Number,
     min: 69, // nice
     max: 420,
@@ -154,4 +156,29 @@ const userSchema = new mongoose.Schema<IUser>({
   ...BaseModel,
 });
 
-export default mongoose.model("User", userSchema);
+// Im not sure why this is not working, going to move this to /utils
+// userSchema.methods.getAge = function (this: IUser) {
+//   const birthDate = new Date(this.birthday);
+
+//   // Get the current date
+//   const currentDate = new Date();
+
+//   // Calculate the difference in years between the current date and the birthday
+//   let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+//   // Check if the current date is before the birthday this year
+//   // If so, subtract 1 from the age because the birthday hasn't occurred yet
+//   const isBeforeBirthday =
+//     currentDate.getMonth() < birthDate.getMonth() ||
+//     (currentDate.getMonth() === birthDate.getMonth() &&
+//       currentDate.getDate() < birthDate.getDate());
+
+//   if (isBeforeBirthday) {
+//     age--;
+//   }
+
+//   console.log(age);
+//   return age;
+// };
+
+export default mongoose.model<IUser>("User", userSchema);

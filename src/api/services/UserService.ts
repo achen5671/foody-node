@@ -17,6 +17,7 @@ import {
   WEEKS_PER_MONTH,
 } from "../helpers/constants";
 import MealRepository from "../repositories/MealRepository";
+import { getAge } from "../helpers/utils";
 
 class UserService {
   login = async (username: string, password: string): Promise<IUser> => {
@@ -55,7 +56,9 @@ class UserService {
 
   getProfile = async (
     userId: string
-  ): Promise<(IUser & { todayCalorieIntake?: number }) | null> => {
+  ): Promise<
+    (IUser & { todayCalorieIntake?: number; age?: number }) | null
+  > => {
     const user = await UserRepository.findOne({ _id: new ObjectId(userId) });
 
     if (!user) {
@@ -66,8 +69,11 @@ class UserService {
       userId: user._id,
     });
 
+    const age = getAge(user.birthday.toString());
+
     return {
       ...user,
+      age,
       todayCalorieIntake: todayCalorieIntake[0]?.totalCalories,
     };
   };
@@ -133,7 +139,7 @@ class UserService {
     // todo: input should be entered by the user
     const weightLosePerWeek = 1;
     const months = new Array(PROJECTED_INTERVAL_IN_MONTHS);
-    let weight = user.currentWeight;
+    let weight = user.weight;
 
     months.forEach((month) => {
       month = weight - WEEKS_PER_MONTH * weightLosePerWeek;
