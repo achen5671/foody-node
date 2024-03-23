@@ -10,6 +10,8 @@ import {
 } from "../routes/Request";
 import LogicService from "./LogicService";
 import {
+  ActivityFactor,
+  ActivityLevel,
   Fitness,
   PROJECTED_INTERVAL_IN_MONTHS,
   WEEKS_PER_MONTH,
@@ -93,19 +95,29 @@ class UserService {
   // tdee: Total Daily Energy Expenditure
   // bmr: Basal Metabolic Rate
   // todo: need to add calorie surplus to tdee.
-  calculateCaloricIntake = async (
+  calculateCaloricIntakes = async (
     request: CalculateCaloricIntakeRequest
-  ): Promise<number> => {
+  ): Promise<any> => {
     // todo: validateRequest
     const bmr = LogicService.calculateBMR(request);
-    console.log(request);
-    const tdee = LogicService.calculateTDEE(bmr, request.activityLevel);
-    const change = LogicService.calculateCaloricDeficitOrSurplus(
-      request.weightToLoseEveryWeek ?? 1,
-      7
-    );
+    const result = await Promise.all(
+      Array.from(ActivityFactor.keys()).map((level) => {
+        const tdee = LogicService.calculateTDEE(bmr, level as ActivityLevel);
+        const change = LogicService.calculateCaloricDeficitOrSurplus(
+          request.weightToLoseEveryWeek ?? 1,
+          7
+        );
 
-    return request.fitnessType === Fitness.GAIN ? tdee + change : tdee - change;
+        return {
+          level,
+          intake:
+            request.fitnessType === Fitness.GAIN
+              ? tdee + change
+              : tdee - change,
+        };
+      })
+    );
+    return result;
   };
 
   projectedWeightProgress = async (

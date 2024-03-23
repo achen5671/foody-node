@@ -100,7 +100,7 @@ class UserRoutes extends BaseRouter {
       "/calories/calculate",
       this.tryWrapper(async (req: express.Request, res: express.Response) => {
         const body = req.body as CalculateCaloricIntakeRequest;
-        const calories = await UserService.calculateCaloricIntake(body);
+        const calories = await UserService.calculateCaloricIntakes(body);
         this.sendSuccessResponse(res, { calories });
       })
     );
