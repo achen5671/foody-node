@@ -12,6 +12,7 @@ export interface IMeal {
   date: Date;
   type: string;
   calories: number;
+  imageUrl: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,6 +40,10 @@ const mealSchema = new mongoose.Schema<IMeal>({
     type: Number,
     required: true,
     min: 0,
+  },
+  imageUrl: {
+    type: String,
+    required: false,
   },
   ...BaseModel,
 });
