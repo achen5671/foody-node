@@ -7,28 +7,32 @@ import {
   Sex,
   WeightType,
 } from "../helpers/constants";
+import { poundsToKilogram } from "../helpers/utils";
 
 class LogicService {
   // Basal Metabolic Rate
   // using The Harris–Benedict equations revised by Roza and Shizgal in 1984.
   //   https://en.wikipedia.org/wiki/Harris–Benedict_equation
+  // default units
   // * age: years
   // * height: cm
-  // * weight: kilogram
+  // * weight: pounds
+  // NOTE: also look at
+  // https: //www.k-state.edu/paccats/Contents/PA/PDF/Physical%20Activity%20and%20Controlling%20Weight.pdf
   calculateBMR = (request: CalculateCaloricIntakeRequest): number => {
     let { age, weight, height, sex, weightType } = request;
 
-    if (weightType === WeightType.POUNDS) {
-      weight = weight * 2.20462;
-    }
+    let weightInKilogram = weight;
 
-    // formula uses number in kilogram
-    if (sex === Sex.FEMALE) {
-      return 9.247 * weight + 3.098 * height - 4.33 * age + 447.593;
+    if (weightType === WeightType.POUNDS) {
+      weightInKilogram = poundsToKilogram(weight);
     }
 
     if (sex === Sex.MALE) {
-      return 13.397 * weight + 4.799 * height - 5.677 * age + 88.362;
+      return 13.7 * weightInKilogram + 5 * height - 6.8 * age + 66;
+    }
+    if (sex === Sex.FEMALE) {
+      return 9.6 * weightInKilogram + 1.8 * height - 4.7 * age + 655;
     }
 
     throw new BadRequestError("Invaid gender");

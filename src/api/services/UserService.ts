@@ -116,10 +116,13 @@ class UserService {
 
         return {
           level,
+          tdee: Math.floor(tdee),
+          change: Math.floor(change),
+          bmr: Math.floor(bmr),
           intake:
             request.fitnessType === Fitness.GAIN
-              ? tdee + change
-              : tdee - change,
+              ? Math.floor(tdee + change)
+              : Math.floor(tdee - change),
         };
       })
     );

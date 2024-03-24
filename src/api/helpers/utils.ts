@@ -20,3 +20,7 @@ export const getAge = (birthday: string) => {
   }
   return age;
 };
+
+export const poundsToKilogram = (pound: number) => {
+  return pound * 0.453592;
+};
