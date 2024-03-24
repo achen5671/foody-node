@@ -126,7 +126,13 @@ class UserService {
         };
       })
     );
-    return result;
+    return {
+      activity: request.activityLevel,
+      tdee: Math.floor(
+        LogicService.calculateTDEE(bmr, request.activityLevel as ActivityLevel)
+      ),
+      others: result ?? [],
+    };
   };
 
   projectedWeightProgress = async (
